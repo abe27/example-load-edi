@@ -45,6 +45,9 @@ def line_notification(msg):
     return False
 
 def main():
+    ## txtList Variable
+    txtList = []
+
     ## Step 1 login
     password = urllib.parse.quote(API_PASSWORD)
     payload = f'operation=LOGON&remote={API_USERNAME}&password={password}'
@@ -61,12 +64,16 @@ def main():
 
     ## Step 2 Download And Save TXT file
     if is_status:
-        etd = "20230212"
-        if API_PROD:
-            etd = str((datetime.now() - timedelta(days=1)).strftime("%Y%m%d"))
-
         if session.status_code == 200:
+            etd = str((datetime.now() - timedelta(days=1)).strftime("%Y%m%d"))
             payload = f"operation=DIRECTORY&fromdate={etd}&Submit=Receive"
+
+            ## For Debug Mode.
+            if API_PROD is False:
+                from_etd = "20230206"
+                to_etd = "20230210"
+                payload = f"operation=DIRECTORY&fromdate={from_etd}&todate={to_etd}&Submit=Receive"
+
             r = requests.request(
                 "POST",
                 API_HOST,
@@ -131,11 +138,20 @@ def main():
                             f.write(p.text)
                         f.close()
 
+                        ## After appending TXT
+                        l["source_dir"] = file_name
+                        txtList.append(l)
+
     ## Step 3 LogOut
     time.sleep(5)
     response = requests.request("GET",f"{API_HOST}?operation=LOGOFF",verify=False,timeout=3,cookies=session.cookies)
     print(response.status_code)
     session.close()
+    ## Step 4 Read TXT file
+    for edi in txtList:
+        print(list(edi))
+    ## Step 5 Send Notification
+
 
 if __name__ == "__main__":
     main()
