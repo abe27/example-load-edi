@@ -19,7 +19,6 @@ API_HOST=os.getenv("API_HOST")
 API_USERNAME = os.getenv("API_USERNAME")
 API_PASSWORD = os.getenv("API_PASSWORD")
 LINE_NOTIFY_TOKEN = os.getenv("LINE_NOTIFY_TOKEN")
-DIST_DIR = os.getenv("DIST_DIR","data/edi")
 SOURCE_DIR = os.getenv("SOURCE_DIR","data/download")
 
 ### Line Notify API Function
