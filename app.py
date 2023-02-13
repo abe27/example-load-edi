@@ -91,7 +91,10 @@ def main():
                 # False =debug,True=prod.
                 if found is API_PROD:
                     if len(docs) >= 9:
-                        # if str(docs[3])[:len("OES.VCBI")] == "OES.VCBI":
+                        edi_type = "RECEIVE"
+                        if str(docs[3])[:len("OES.VCBI")] == "OES.VCBI":
+                            edi_type = "ORDERPLAN"
+
                         l = {
                             "mailbox": docs[0],
                             "batch_id": docs[1],
@@ -100,8 +103,8 @@ def main():
                             "mailto": docs[8]
                         }
                         url_downloaded = f"{API_HOST}?operation=DOWNLOAD&mailbox_id={API_USERNAME}&batch_num={docs[1]}&data_format={docs[7]}&batch_id={docs[3]}"
-                        # makedir folder gedi is exits
-                        dirs_dist = f'{SOURCE_DIR}/{(l["uploaded_at"]).strftime("%Y%m%d")}'
+                        # makedir folder edi is exits
+                        dirs_dist = f'{SOURCE_DIR}/{edi_type}/{(l["uploaded_at"]).strftime("%Y%m%d")}'
                         os.makedirs(dirs_dist, exist_ok=True)
                         # download file
                         request = requests.get(
@@ -113,11 +116,14 @@ def main():
                         )
                         txt = BeautifulSoup(
                             request.content, "lxml")
-                        # Write data to GEDI File
+
                         file_name = f'{dirs_dist}/{l["batch_id"]}.{docs[3]}'
-                        # ตรวจสอบข้อมูลซ้ำ ถ้าเจอลบไฟล์ที่ซ้ำออก
+                        # Check if file exists
                         if os.path.exists(file_name):
+                            ## Remove when file exists
                             os.remove(file_name)
+
+                        ## Append TXT to TXT file
                         f = open(file_name,mode="a",encoding="ascii",newline="\r\n")
                         for p in txt:
                             f.write(p.text)
