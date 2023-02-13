@@ -58,6 +58,7 @@ def main():
     is_status = True
     if txt.find("751") >= 0:
         is_status = False
+
     ## Step 2 Download And Save TXT file
     if is_status:
         etd = "20230212"
@@ -129,6 +130,7 @@ def main():
                         for p in txt:
                             f.write(p.text)
                         f.close()
+
     ## Step 3 LogOut
     time.sleep(5)
     response = requests.request("GET",f"{API_HOST}?operation=LOGOFF",verify=False,timeout=3,cookies=session.cookies)
