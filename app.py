@@ -141,6 +141,7 @@ def main():
                         ## After appending TXT
                         l["source_dir"] = file_name
                         txtList.append(l)
+                        print(f"Download EDI file {docs[3]} is completed.")
 
     ## Step 3 LogOut
     time.sleep(5)
