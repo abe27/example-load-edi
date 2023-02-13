@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 import requests
 import urllib3
+## Load .env file
 load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 
 
