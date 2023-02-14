@@ -10,3 +10,5 @@
 <p>API_PASSWORD=รหัสผ่าน</p>
 <p>LINE_NOTIFY_TOKEN=</p>
 <p>SOURCE_DIR="data/download"</p>
+
+## หมายเหตุใช้กับ python3.9 ขึ้นไป
