@@ -11,4 +11,7 @@
 <p>LINE_NOTIFY_TOKEN=</p>
 <p>SOURCE_DIR="data/download"</p>
 
+## Step.3 รัน script
+<p>รันที่ไฟล์ edi.py</p>
+
 ## หมายเหตุใช้กับ python3.9 ขึ้นไป
