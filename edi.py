@@ -70,8 +70,8 @@ def main():
 
             ## For Debug Mode.
             if API_PROD is False:
-                from_etd = "20230206"
-                to_etd = "20230210"
+                from_etd = "20230214"
+                to_etd = "20230215"
                 payload = f"operation=DIRECTORY&fromdate={from_etd}&todate={to_etd}&Submit=Receive"
 
             r = requests.request(
@@ -155,5 +155,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    line_notification("Hello World!")
     sys.exit(0)
